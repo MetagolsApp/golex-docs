@@ -1,6 +1,6 @@
 # Table of contents
 
-* [OpenApi Basic Information](README.md)
+* [Golex API General Information](README.md)
 * [ENUM](enum.md)
 * [Spot](spot.md)
 * [Margin](margin.md)
