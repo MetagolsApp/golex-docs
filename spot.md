@@ -2,11 +2,11 @@
 
 ## Public
 
-### Security: [None](broken-reference)
+### Security: [None](broken-reference/)
 
 {% swagger method="get" path="/sapi/v1/ping" baseUrl="https://openapi.golexchange.io" summary=" Test Connectivity" %}
 {% swagger-description %}
- This endpoint checks connectivity to the host
+This endpoint checks connectivity to the host
 {% endswagger-description %}
 
 {% swagger-response status="200: OK" description=" Connection normal" %}
@@ -18,7 +18,7 @@
 
 {% swagger method="get" path="/sapi/v1/time" baseUrl="https://openapi.golexchange.io" summary=" Check Server Time" %}
 {% swagger-description %}
- This endpoint checks connectivity to the server and retrieves server timestamp
+This endpoint checks connectivity to the server and retrieves server timestamp
 {% endswagger-description %}
 
 {% swagger-response status="200: OK" description=" Successfully retrieved server time" %}
@@ -94,14 +94,123 @@
 
 ## Market
 
-### Security Type: [None](broken-reference)
+### Security Type: [None](broken-reference/)
+
+{% swagger method="get" path="/market/markets-overview" baseUrl="https://golex.io/backend-api" summary="(V2) Market Overview" %}
+{% swagger-description %}
+Get all symbols & all trade markets 
+
+\
+
+
+Note: this API has different domain
+{% endswagger-description %}
+
+{% swagger-response status="200: OK" description="" %}
+<pre class="language-javascript"><code class="lang-javascript">{
+    "markets": {
+<strong>        "GOLC/USDT": {
+</strong>            "limitVolumeMin": 1e-8,
+            "symbol": "golc1655usdt",
+            "showName": "GOLC/USDT",
+            "marketBuyMin": 1e-8,
+            "marketSellMin": 1e-8,
+            "etfOpen": 0,
+            "isOvercharge": 0,
+            "isOpenCross": 0,
+            "dayBuyLimit": 0,
+            "name": "GOLC1655/USDT",
+            "daySellLimit": 0,
+            "limitPriceMin": 1e-8,
+            "baseCoin": "GOLC",
+            "countCoin": "USDT",
+            "pricePrecision": 8,
+            "volumePrecision": 8
+        },
+        "GOL/USDT": {
+            "limitVolumeMin": 0.00001,
+            "symbol": "gol1317usdt",
+            "showName": "GOL/USDT",
+            "marketBuyMin": 0.00001,
+            "marketSellMin": 0.00001,
+            "etfOpen": 0,
+            "isOvercharge": 0,
+            "isOpenCross": 0,
+            "dayBuyLimit": 0,
+            "name": "GOL1317/USDT",
+            "daySellLimit": 0,
+            "limitPriceMin": 0.00001,
+            "baseCoin": "GOL",
+            "countCoin": "USDT",
+            "pricePrecision": 8,
+            "volumePrecision": 8
+        },
+    },
+    "tokens": {
+        "GOL": {
+            "name": "GOL",
+            "symbol": "GOL1317",
+            "depositOpen": true,
+            "withdrawOpen": true,
+            "otcOpen": false
+        },
+        "GOLC": {
+            "name": "GOLC",
+            "symbol": "GOLC1655",
+            "depositOpen": true,
+            "withdrawOpen": true,
+            "otcOpen": false
+        }
+    }
+} 
+        
+</code></pre>
+{% endswagger-response %}
+{% endswagger %}
+
+{% swagger method="get" path="/market/snapshot" baseUrl="https://golex.io/backend-api" summary="(V2) Market Snapshot" %}
+{% swagger-description %}
+Get all markets current tickers \
+Note: this API has different domain
+
+
+
+They keys of the object is a market symbol (not market name)
+{% endswagger-description %}
+
+{% swagger-response status="200: OK" description="" %}
+```javascript
+{
+    "golc1655usdt": {
+        "amount": "7332.1875113387014616",
+        "close": "0.14",
+        "high": "0.15158999",
+        "low": "0.135",
+        "open": "0.13500001",
+        "rose": "0.03703696",
+        "vol": "52096.03405958"
+    },
+    "gol1317usdt": {
+        "amount": "584.7640492215186544",
+        "close": "0.009",
+        "high": "0.009",
+        "low": "0.00880102",
+        "open": "0.008999",
+        "rose": "0.00011112",
+        "vol": "65054.81015784"
+    }
+}
+        
+```
+{% endswagger-response %}
+{% endswagger %}
 
 {% swagger method="get" path="/sapi/v1/depth" baseUrl="https://openapi.golexchange.io" summary=" Depth" %}
 {% swagger-description %}
- market detpth data
+market detpth data
 {% endswagger-description %}
 
-{% swagger-parameter in="query" name="limit" type="integer" %}
+{% swagger-parameter in="query" name="limit" type="integer" required="false" %}
 Default 100; Max 100
 {% endswagger-parameter %}
 
@@ -152,17 +261,13 @@ The fields bids and asks are lists of order book price level entries, sorted fro
 | --- | ----- | ------- | ------------------------------------------------- |
 | ' ' | float | `2.3`   | The total quantity of orders for this price level |
 
-
-
-
-
 {% swagger method="get" path="/sapi/v1/ticker" baseUrl="https://openapi.golexchange.io" summary=" 24hrs ticker" %}
 {% swagger-description %}
- 24 hour price change statistics.
+24 hour price change statistics.
 {% endswagger-description %}
 
 {% swagger-parameter in="query" name="symbol" required="true" %}
-Symbol Name. E.g. 
+Symbol Name. E.g.
 
 `BTCUSDT`
 {% endswagger-parameter %}
@@ -193,22 +298,18 @@ Symbol Name. E.g.
 | last | float | `8900`          | Last Price   |   |
 | vol  | float | `4999`          | Trade Volume |   |
 
-
-
-
-
 {% swagger method="get" path="/sapi/v1/trades" baseUrl="https://openapi.golexchange.io" summary="Recent Trades List" %}
 {% swagger-description %}
 
 {% endswagger-description %}
 
 {% swagger-parameter in="query" name="symbol" required="true" %}
-Symbol Name. E.g. 
+Symbol Name. E.g.
 
 `BTCUSDT`
 {% endswagger-parameter %}
 
-{% swagger-parameter in="query" name="limit" %}
+{% swagger-parameter in="query" name="limit" required="false" %}
 Default 100; Max 1000Responses200
 {% endswagger-parameter %}
 
@@ -238,23 +339,19 @@ Default 100; Max 1000Responses200
 | qty   | float  | `5`             | The quantity traded    |   |
 | side  | string | `BUY/SELL`      | Taker side             |   |
 
-
-
-
-
 {% swagger method="get" path="/sapi/v1/klines" baseUrl="https://openapi.golexchange.io" summary="Kline/candlestick data" %}
 {% swagger-description %}
 
 {% endswagger-description %}
 
 {% swagger-parameter in="query" name="symbol" type="" required="true" %}
-Symbol Name. E.g. 
+Symbol Name. E.g.
 
 `BTCUSDT`
 {% endswagger-parameter %}
 
 {% swagger-parameter in="query" name="interval" required="true" %}
-Interval of the Kline. Possible values include: 
+Interval of the Kline. Possible values include:
 
 `1min`
 
@@ -286,13 +383,10 @@ Interval of the Kline. Possible values include:
 
 `1month`
 
-\
-
-
-
+\\
 {% endswagger-parameter %}
 
-{% swagger-parameter in="query" name=" Default 100; Max 300" %}
+{% swagger-parameter in="query" name=" Default 100; Max 300" required="false" %}
 Default 100; Max 300Responses200
 {% endswagger-parameter %}
 
@@ -342,31 +436,29 @@ Default 100; Max 300Responses200
 
 ### Trade
 
-### Security Type: [TRADE](broken-reference)
+### Security Type: [TRADE](broken-reference/)
 
 Endpoints under **Trade** require an API Key and a signature
 
 {% swagger method="post" path="/sapi/v1/order" baseUrl="https://openapi.golexchange.io" summary=" New Order" %}
 {% swagger-description %}
- 
-
 **Rate Limit: 100times/2s**
 {% endswagger-description %}
 
-{% swagger-parameter in="query" name="X-CH-SIGN" type="string" %}
+{% swagger-parameter in="query" name="X-CH-SIGN" type="string" required="false" %}
 Sign
 {% endswagger-parameter %}
 
-{% swagger-parameter in="query" name="X-CH-APIKEY" type="string" %}
+{% swagger-parameter in="query" name="X-CH-APIKEY" type="string" required="false" %}
 Your API-key
 {% endswagger-parameter %}
 
-{% swagger-parameter in="query" name="X-CH-TS" type="integer" %}
+{% swagger-parameter in="query" name="X-CH-TS" type="integer" required="false" %}
 timestamp
 {% endswagger-parameter %}
 
 {% swagger-parameter in="body" name="symbol" required="true" %}
-Symbol Name. E.g. 
+Symbol Name. E.g.
 
 `BTCUSDT`
 {% endswagger-parameter %}
@@ -382,7 +474,7 @@ Side of the order,
 {% endswagger-parameter %}
 
 {% swagger-parameter in="body" name="type" required="true" %}
-Type of the order, 
+Type of the order,
 
 `LIMIT/MARKET`
 {% endswagger-parameter %}
@@ -391,11 +483,11 @@ Type of the order,
 Order price, REQUIRED for LIMIT orders
 {% endswagger-parameter %}
 
-{% swagger-parameter in="body" name="newClientOrderId" %}
+{% swagger-parameter in="body" name="newClientOrderId" required="false" %}
 Unique order ID generated by users to mark their orders
 {% endswagger-parameter %}
 
-{% swagger-parameter in="body" name="recvwindow" type="integer" %}
+{% swagger-parameter in="body" name="recvwindow" type="integer" required="false" %}
 Time window
 {% endswagger-parameter %}
 
@@ -435,27 +527,27 @@ Time window
 
 {% swagger method="post" path="/sapi/v1/order/test" baseUrl="https://openapi.golexchange.io" summary=" Test New Order" %}
 {% swagger-description %}
- Test new order creation and signature/recvWindow length. Creates and validates a new order but does not send the order into the matching engine.
+Test new order creation and signature/recvWindow length. Creates and validates a new order but does not send the order into the matching engine.
 {% endswagger-description %}
 
-{% swagger-parameter in="header" name="X-CH-SIGN" %}
+{% swagger-parameter in="header" name="X-CH-SIGN" required="false" %}
 Sign
 {% endswagger-parameter %}
 
-{% swagger-parameter in="header" name="X-CH-APIKEY" %}
+{% swagger-parameter in="header" name="X-CH-APIKEY" required="false" %}
 Your API-key
 {% endswagger-parameter %}
 
-{% swagger-parameter in="header" name="X-CH-TS" %}
+{% swagger-parameter in="header" name="X-CH-TS" required="false" %}
 timestamp
 {% endswagger-parameter %}
 
-{% swagger-parameter in="body" name="recvwindow" type="integer" %}
+{% swagger-parameter in="body" name="recvwindow" type="integer" required="false" %}
 Time window
 {% endswagger-parameter %}
 
 {% swagger-parameter in="body" name="symbol" required="true" %}
-Symbol Name. E.g. 
+Symbol Name. E.g.
 
 `BTCUSDT`
 {% endswagger-parameter %}
@@ -465,26 +557,26 @@ Order vol. For MARKET BUY orders, vol=amount.
 {% endswagger-parameter %}
 
 {% swagger-parameter in="body" name="side" required="true" %}
-Side of the order, 
+Side of the order,
 
 `BUY/SELL`
 {% endswagger-parameter %}
 
 {% swagger-parameter in="body" name="type" required="true" %}
-Type of the order, 
+Type of the order,
 
 `LIMIT/MARKET`
 {% endswagger-parameter %}
 
 {% swagger-parameter in="body" name="price" type="number" required="true" %}
-Order price, REQUIRED for 
+Order price, REQUIRED for
 
 `LIMIT`
 
- orders
+orders
 {% endswagger-parameter %}
 
-{% swagger-parameter in="body" name="newClientorderId" %}
+{% swagger-parameter in="body" name="newClientorderId" required="false" %}
 Unique order ID generated by users to mark their orders
 {% endswagger-parameter %}
 
@@ -499,26 +591,22 @@ Unique order ID generated by users to mark their orders
 
 **weight(IP/UID): 1**
 
-****
-
-
+***
 
 {% swagger method="post" path="/sapi/v1/batchOrders" baseUrl="https://openapi.golexchange.io" summary=" Batch Orders" %}
 {% swagger-description %}
- 
-
 **batch contains at most 10 orders**
 {% endswagger-description %}
 
-{% swagger-parameter in="header" name="X-CH-SIGN" %}
+{% swagger-parameter in="header" name="X-CH-SIGN" required="false" %}
 Sign
 {% endswagger-parameter %}
 
-{% swagger-parameter in="header" name="X-CH-APIKEY" %}
+{% swagger-parameter in="header" name="X-CH-APIKEY" required="false" %}
 Your API-key
 {% endswagger-parameter %}
 
-{% swagger-parameter in="header" name="X-CH-TS" %}
+{% swagger-parameter in="header" name="X-CH-TS" required="false" %}
 timestamp
 {% endswagger-parameter %}
 
@@ -526,8 +614,8 @@ timestamp
 Batch order param
 {% endswagger-parameter %}
 
-{% swagger-parameter in="body" name="orders" type="number" %}
-Symbol Name. E.g. 
+{% swagger-parameter in="body" name="orders" type="number" required="false" %}
+Symbol Name. E.g.
 
 `BTCUSDT`
 {% endswagger-parameter %}
@@ -555,26 +643,20 @@ Symbol Name. E.g.
 | side      | string | `BUY/SELL`     | Side of the order       |   |
 | batchType | string | `LIMIT/MARKET` | Batch type of the order |   |
 
-
-
-
-
 {% swagger method="get" path="/sapi/v1/order" baseUrl="https://openapi.golexchange.io" summary=" Query Order" %}
 {% swagger-description %}
- 
-
 **Rate Limit: 20times/2s**
 {% endswagger-description %}
 
-{% swagger-parameter in="header" name="X-CH-SIGN" %}
+{% swagger-parameter in="header" name="X-CH-SIGN" required="false" %}
 Sign
 {% endswagger-parameter %}
 
-{% swagger-parameter in="header" name="X-CH-APIKEY" %}
+{% swagger-parameter in="header" name="X-CH-APIKEY" required="false" %}
 Your API-key
 {% endswagger-parameter %}
 
-{% swagger-parameter in="header" name="X-CH-TS" %}
+{% swagger-parameter in="header" name="X-CH-TS" required="false" %}
 timestampResponses200
 {% endswagger-parameter %}
 
@@ -582,12 +664,12 @@ timestampResponses200
 Order ID
 {% endswagger-parameter %}
 
-{% swagger-parameter in="query" name="newClientorderId" %}
+{% swagger-parameter in="query" name="newClientorderId" required="false" %}
 Client Order Id, Unique order ID generated by users to mark their orders. E.g. 354444heihieddada
 {% endswagger-parameter %}
 
 {% swagger-parameter in="query" name="symbol" required="true" %}
-Symbol Name. E.g. 
+Symbol Name. E.g.
 
 `BTCUSDl`
 {% endswagger-parameter %}
@@ -627,26 +709,20 @@ Symbol Name. E.g.
 | side          | string | `BUY`                | Order direction. Possible values can only be: BUY (buy long) and SELL (sell short)                                                                                                      |   |
 | status        | string | `NEW`                | Order status. Possible values are NEW (new order, no transaction), PARTIALLY\_FILLED (partially filled), FILLED (fully filled), CANCELED (cancelled) and REJECTED (order rejected).POST |   |
 
-
-
-
-
 {% swagger method="post" path="/sapi/v1/cancel" baseUrl="https://openapi.golexchange.io" summary="Cancel Order" %}
 {% swagger-description %}
- 
-
 **Rate Limit: 100time/2s**
 {% endswagger-description %}
 
-{% swagger-parameter in="header" name="X-CH-SIGN" %}
+{% swagger-parameter in="header" name="X-CH-SIGN" required="false" %}
 Sign
 {% endswagger-parameter %}
 
-{% swagger-parameter in="header" name="X-CH-APIKEY" %}
+{% swagger-parameter in="header" name="X-CH-APIKEY" required="false" %}
 Your API-key
 {% endswagger-parameter %}
 
-{% swagger-parameter in="header" name="X-CH-TS" %}
+{% swagger-parameter in="header" name="X-CH-TS" required="false" %}
 timestamp
 {% endswagger-parameter %}
 
@@ -654,12 +730,12 @@ timestamp
 Order ID
 {% endswagger-parameter %}
 
-{% swagger-parameter in="body" name="newClientOrderId" type="String" %}
+{% swagger-parameter in="body" name="newClientOrderId" type="String" required="false" %}
 Client Order Id, Unique order ID generated by users to mark their orders. E.g. 354444heihieddada
 {% endswagger-parameter %}
 
 {% swagger-parameter in="body" name="symbol" required="true" %}
-Symbol Name. E.g. 
+Symbol Name. E.g.
 
 `BTCUSDT`
 {% endswagger-parameter %}
@@ -687,31 +763,25 @@ Symbol Name. E.g.
 | symbol        | string | `BTCUSDT`            | Name of the symbol                                                                                                                                                                    |   |
 | status        | string | `NEW`                | <p>The state of the order.Possible values include <code>NEW</code>, <code>PARTIALLY_FILLED</code>, <code>FILLED</code>, <code>CANCELED</code>, and <code>REJECTED</code>.POST<br></p> |   |
 
-
-
-
-
 {% swagger method="post" path="/sapi/v1/batchCancel" baseUrl="https://openapi.golexchange.io" summary=" Batch cancel orders" %}
 {% swagger-description %}
- 
-
 **batch contains at most 10 orders**
 {% endswagger-description %}
 
-{% swagger-parameter in="header" name="X-CH-SIGN" %}
+{% swagger-parameter in="header" name="X-CH-SIGN" required="false" %}
 Sign
 {% endswagger-parameter %}
 
-{% swagger-parameter in="header" name="X-CH-APIKEY" %}
+{% swagger-parameter in="header" name="X-CH-APIKEY" required="false" %}
 Your API-key
 {% endswagger-parameter %}
 
-{% swagger-parameter in="header" name="X-CH-TS" %}
+{% swagger-parameter in="header" name="X-CH-TS" required="false" %}
 timestamp
 {% endswagger-parameter %}
 
-{% swagger-parameter in="body" name="orderIds" %}
-Order ID collection 
+{% swagger-parameter in="body" name="orderIds" required="false" %}
+Order ID collection
 
 `[123,456]`
 
@@ -719,7 +789,7 @@ Responses200GET
 {% endswagger-parameter %}
 
 {% swagger-parameter in="body" name="symbol" required="true" %}
-Symbol Name. E.g. 
+Symbol Name. E.g.
 
 `BTCUSDT`
 {% endswagger-parameter %}
@@ -747,25 +817,25 @@ Symbol Name. E.g.
 **Rate Limit: 20times/2s**
 {% endswagger-description %}
 
-{% swagger-parameter in="header" name="X-CH-SIGN" %}
+{% swagger-parameter in="header" name="X-CH-SIGN" required="false" %}
 Sign
 {% endswagger-parameter %}
 
-{% swagger-parameter in="header" name="X-CH-APIKEY" %}
+{% swagger-parameter in="header" name="X-CH-APIKEY" required="false" %}
 Your API-key
 {% endswagger-parameter %}
 
-{% swagger-parameter in="header" name="X-CH-TS" %}
+{% swagger-parameter in="header" name="X-CH-TS" required="false" %}
 timestamp
 {% endswagger-parameter %}
 
 {% swagger-parameter in="query" name="symbol" required="true" %}
-Symbol Name. E.g. 
+Symbol Name. E.g.
 
 `BTCUSDT`
 {% endswagger-parameter %}
 
-{% swagger-parameter in="query" name="limit" %}
+{% swagger-parameter in="query" name="limit" required="false" %}
 Default 100; Max 1000
 {% endswagger-parameter %}
 
@@ -805,38 +875,34 @@ Default 100; Max 1000
 | side          | string | `BUY`                | The order side `BUY,SELL`                                                                                          |   |
 | status        | string | `NEW`                | The state of the order.Possible values include `NEW`, `PARTIALLY_FILLED`, `FILLED`, `CANCELED`, and `REJECTED`.GET |   |
 
-
-
 {% swagger method="get" path="/sapi/v1/myTrades" baseUrl="https://openapi.golexchange.io" summary="Trades" %}
 {% swagger-description %}
- 
-
 **Rate Limt: 20times/2s**
 {% endswagger-description %}
 
-{% swagger-parameter in="header" name="X-CH-SIGN" %}
+{% swagger-parameter in="header" name="X-CH-SIGN" required="false" %}
 Sign
 {% endswagger-parameter %}
 
-{% swagger-parameter in="header" name="X-CH-APIKEY" %}
+{% swagger-parameter in="header" name="X-CH-APIKEY" required="false" %}
 Your API-key
 {% endswagger-parameter %}
 
-{% swagger-parameter in="header" name="X-CH-TS" %}
+{% swagger-parameter in="header" name="X-CH-TS" required="false" %}
 timestamp
 {% endswagger-parameter %}
 
 {% swagger-parameter in="query" name="symbol" required="true" %}
-Symbol Name. E.g. 
+Symbol Name. E.g.
 
 `BTCUSDT`
 {% endswagger-parameter %}
 
-{% swagger-parameter in="query" name="limit" %}
+{% swagger-parameter in="query" name="limit" required="false" %}
 Default 100; Max1000
 {% endswagger-parameter %}
 
-{% swagger-parameter in="query" name="fromId" %}
+{% swagger-parameter in="query" name="fromId" required="false" %}
 Trade Id to fetch from
 {% endswagger-parameter %}
 
@@ -878,31 +944,28 @@ Trade Id to fetch from
 | feeCoin | string  | `ETH`                | Trading fee coin              |
 | fee     | number  | `0.001`              | Trading fee                   |
 
-****
+***
 
 ## Account
 
 ### Security Type: USER\_DATA
 
-Endpoints under Account require an API-key and a signature.\
-
+Endpoints under Account require an API-key and a signature.\\
 
 {% swagger method="get" path="/sapi/v1/account" baseUrl="https://openapi.golexchange.io" summary=" Account Information" %}
 {% swagger-description %}
- 
-
 **Rate Limit: 20times/2s**
 {% endswagger-description %}
 
-{% swagger-parameter in="header" name="X-CH-SIGN" %}
+{% swagger-parameter in="header" name="X-CH-SIGN" required="false" %}
 Sign
 {% endswagger-parameter %}
 
-{% swagger-parameter in="header" name="X-CH-APIKEY" %}
+{% swagger-parameter in="header" name="X-CH-APIKEY" required="false" %}
 Your API-key
 {% endswagger-parameter %}
 
-{% swagger-parameter in="header" name="X-CH-TS" %}
+{% swagger-parameter in="header" name="X-CH-TS" required="false" %}
 timestamp
 {% endswagger-parameter %}
 
