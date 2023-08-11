@@ -2,9 +2,7 @@
 
 ### Demo Url
 
-[https://github.com/exchange2021](https://github.com/exchange2021)
-
-
+[https://github.com/MetagolsApp/golex-api-node-example](https://github.com/MetagolsApp/golex-api-node-example)
 
 ### Signed example
 
